@@ -1,5 +1,4 @@
 # Finance Data Processing & Access Control Backend
-# Finance Data Processing and Access Control Backend
 
 **Backend Developer Intern – Internship Assignment**  
 
