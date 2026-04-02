@@ -1,194 +1,173 @@
 # Finance Data Processing & Access Control Backend
+# Finance Data Processing and Access Control Backend
 
-## 📌 Overview
+**Backend Developer Intern – Internship Assignment**  
 
-This project is a backend system built for managing financial records with role-based access control. It allows different types of users to interact with financial data based on their permissions and provides summary analytics for a dashboard.
-
-The system is designed with a focus on clean architecture, proper data handling, and secure access control.
-
----
-
-## 🚀 Tech Stack
-
-* **Framework:** FastAPI (Python)
-* **Database:** SQLite
-* **ORM:** SQLAlchemy
-* **Authentication:** JWT (JSON Web Tokens)
-* **API Docs:** Swagger UI (auto-generated)
+A fully functional backend system for managing financial records with **role-based access control**, **authentication**, and **dashboard analytics**. Built with **FastAPI**, **SQLite**, and **SQLAlchemy**.
 
 ---
 
-## 🎯 Features
+## 🛠 Tech Stack
 
-### 🔐 Authentication & Authorization
+- **Language:** Python 3.13  
+- **Framework:** FastAPI  
+- **Database:** SQLite  
+- **ORM:** SQLAlchemy  
+- **Authentication:** JWT tokens  
 
-* User registration and login
-* JWT-based authentication
-* Role-based access control (RBAC)
-
-### 👤 User Roles
-
-* **Admin**
-
-  * Full access (create, update, delete records & manage users)
-* **Analyst**
-
-  * View records and access analytics
-* **Viewer**
-
-  * Read-only access to dashboard data
+Optional tools for development: Uvicorn, Pydantic, Passlib.
 
 ---
 
-### 💰 Financial Records Management
-
-* Create financial records (Admin)
-* View records (All users)
-* Update records (Admin)
-* Delete records (Admin)
-
-Each record includes:
-
-* Amount
-* Type (Income / Expense)
-* Category
-* Date
-* Notes
-
----
-
-### 🔍 Filtering Support
-
-* Filter by:
-
-  * Type (income / expense)
-  * Category
-  * Date range
+## 📂 Project Structure
+FinanceBackend/
+│
+├── app/
+│ ├── main.py # FastAPI app entrypoint
+│ ├── database.py # SQLite & SQLAlchemy setup
+│ ├── models/ # Database models (User, Record)
+│ ├── schemas/ # Pydantic schemas for validation
+│ ├── core/ # Security utils (JWT, hashing)
+│ └── routes/ # API routers (auth, users, records)
+│
+├── .gitignore
+├── README.md
+├── finance.db # SQLite database
+└── requirements.txt
 
 ---
 
-### 📊 Dashboard Analytics
+## ⚡ Features
 
-* Total Income
-* Total Expenses
-* Net Balance
+1. **Authentication (JWT)**  
+   - Register & login endpoints  
+   - Token-based authentication  
 
----
+2. **Role-Based Access Control**  
+   - `Admin` – full access (create/update/delete users & records)  
+   - `Analyst` – read records & dashboard summary  
+   - `Viewer` – view dashboard only  
 
-## 📡 API Endpoints
+3. **CRUD Operations for Financial Records**  
+   - Create, read, update, delete  
+   - Filter by `type` (income/expense)  
 
-### 🔐 Auth
+4. **Dashboard Analytics**  
+   - Total income, total expenses, net balance  
 
-* `POST /auth/register` → Register new user
-* `POST /auth/login` → Login & get JWT token
-
----
-
-### 👤 Users (Role-Based Access)
-
-* `GET /users/admin-only` → Admin only
-* `GET /users/analytics` → Admin & Analyst
-* `GET /users/dashboard` → All roles
-
----
-
-### 💰 Records
-
-* `POST /records/` → Create record (Admin)
-* `GET /records/` → Get records (All users)
-* `PUT /records/{record_id}` → Update record (Admin)
-* `DELETE /records/{record_id}` → Delete record (Admin)
-
----
-
-### 📊 Dashboard
-
-* `GET /records/summary` → Financial summary (Admin, Analyst)
-
----
-
-## 🧪 Test Users
-
-You can use these sample users:
-
-```
-Admin:
-username: admin
-password: 1234
-
-Analyst:
-username: analyst
-password: 1234
-
-Viewer:
-username: viewer
-password: 1234
-```
+5. **Data Validation & Error Handling**  
+   - Input validation via Pydantic  
+   - Proper HTTP status codes  
 
 ---
 
 ## ⚙️ Setup Instructions
 
-### 1. Clone the repository
-
-```
-git clone <your-repo-link>
-cd finance-backend
-```
-
-### 2. Create virtual environment
-
-```
-python -m venv venv
-source venv/bin/activate   # macOS/Linux
-venv\Scripts\activate      # Windows
-```
-
-### 3. Install dependencies
-
-```
+### 1. Clone Repository
+```bash
+git clone https://github.com/Deeksha7-wa/Finance-Data-Processing-Access-Control-Backend.git
+cd Finance-Data-Processing-Access-Control-Backend
+2. Create Virtual Environment
+python3 -m venv .venv
+source .venv/bin/activate   # Mac/Linux
+# .venv\Scripts\activate    # Windows
+3. Install Dependencies
 pip install -r requirements.txt
-```
+4. Run Server
+uvicorn app.main:app --reload --port 8000
 
-### 4. Run the server
+Access Swagger UI at:
 
-```
-uvicorn app.main:app --reload
-```
-
----
-
-## 🌐 API Documentation
-
-Once the server is running, open:
-
-```
 http://127.0.0.1:8000/docs
-```
+👥 Roles & Permissions
+Role	Endpoints Allowed
+Admin	/users/admin-only, /users/analytics, /users/dashboard, /records/*
+Analyst	/users/analytics, /users/dashboard, /records/* (read only)
+Viewer	/users/dashboard
+🧪 Example API Requests
+1. Register User
 
----
+POST /auth/register
 
-## 🧠 Design Decisions
+{
+  "username": "admin",
+  "password": "1234",
+  "role": "admin"
+}
+2. Login
 
-* Used FastAPI for its performance and clean API design
-* Implemented JWT for stateless authentication
-* Used role-based access control for realistic permission handling
-* Designed modular structure (routes, models, schemas, core)
+POST /auth/login
 
----
+{
+  "username": "admin",
+  "password": "1234"
+}
 
-## 🚀 Future Improvements
+Response
 
-* Pagination for records
-* Search functionality
-* Soft delete support
-* Deployment (Render / Railway)
-* Unit & integration testing
+{
+  "access_token": "<JWT_TOKEN>",
+  "token_type": "bearer"
+}
+3. Create Record (Admin)
 
----
+POST /records/
 
-## 🏆 Conclusion
+{
+  "amount": 5000,
+  "type": "income",
+  "category": "salary",
+  "date": "2026-04-02",
+  "notes": "April salary"
+}
+4. Get Records
 
-This project demonstrates backend development skills including API design, authentication, access control, and data processing. The system is structured to be scalable, maintainable, and aligned with real-world backend practices.
+GET /records?type=income
 
----
+Response
+
+[
+  {
+    "id": 1,
+    "amount": 5000,
+    "type": "income",
+    "category": "salary",
+    "date": "2026-04-02",
+    "notes": "April salary"
+  }
+]
+5. Dashboard Summary
+
+GET /records/summary
+
+Response
+
+{
+  "total_income": 5000,
+  "total_expense": 0,
+  "net_balance": 5000
+}
+🔒 Swagger Authorization
+Login → Get JWT token
+Click Authorize in Swagger UI
+Paste token as:
+Bearer <JWT_TOKEN>
+
+✅ Key Highlights
+Clean project structure with modular routes
+Role-based authorization with decorators
+JWT authentication & password hashing
+SQLite database for lightweight setup
+FastAPI Swagger docs for easy testing
+Optional Improvements
+Pagination for records
+Search/filter by notes & categories
+Soft delete instead of permanent delete
+Unit tests / integration tests
+Docker setup for easy deployment
+📌 Notes
+Ensure .env or secret tokens are kept secure if deployed
+Use a .gitignore to avoid pushing finance.db or virtual environments
+
+
+
