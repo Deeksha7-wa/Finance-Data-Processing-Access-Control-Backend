@@ -99,6 +99,7 @@ uvicorn app.main:app --reload --port 8000
 
 ### 📷 Swagger UI Preview
 ![Swagger](./Screenshots/Swagger.png)
+![Swagger](https://raw.githubusercontent.com/Deeksha7-wa/Finance-Data-Processing-Access-Control-Backend/main/Screenshots/Swagger.png)
 
 ---
 
