@@ -97,6 +97,34 @@ uvicorn app.main:app --reload --port 8000
 
 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
+📄 Access Swagger UI
+http://127.0.0.1:8000/docs
+
+### 📷 Swagger UI Preview
+![Swagger UI](./screenshots/swagger.png)
+
+---
+
+## 📸 API Endpoints Overview
+
+### 🔐 Auth
+- **POST** `/auth/register` → Register
+- **POST** `/auth/login` → Login
+
+### 👥 Users
+- **GET** `/users/admin-only` → Admin Data  
+- **GET** `/users/analytics` → Analytics Data  
+- **GET** `/users/dashboard` → Dashboard  
+
+### 💰 Records
+- **POST** `/records/` → Create Record  
+- **GET** `/records/` → Get Records  
+- **PUT** `/records/{record_id}` → Update Record  
+- **DELETE** `/records/{record_id}` → Delete Record  
+- **GET** `/records/summary` → Summary  
+
+### 🌐 Default
+- **GET** `/` → Root
 ---
 
 ## 👥 Roles & Permissions
