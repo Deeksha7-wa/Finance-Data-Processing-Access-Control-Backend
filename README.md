@@ -59,59 +59,101 @@ FinanceBackend/
    - Proper HTTP status codes  
 
 ---
-
 ## ⚙️ Setup Instructions
 
 ### 1. Clone Repository
+
 ```bash
 git clone https://github.com/Deeksha7-wa/Finance-Data-Processing-Access-Control-Backend.git
 cd Finance-Data-Processing-Access-Control-Backend
-2. Create Virtual Environment
+```
+
+### 2. Create Virtual Environment
+
+```bash
 python3 -m venv .venv
+```
+
+### 3. Activate Virtual Environment
+
+```bash
 source .venv/bin/activate   # Mac/Linux
-# .venv\Scripts\activate    # Windows
-3. Install Dependencies
+# .venv\\Scripts\\activate    # Windows
+```
+
+### 4. Install Dependencies
+
+```bash
 pip install -r requirements.txt
-4. Run Server
+```
+
+### 5. Run Server
+
+```bash
 uvicorn app.main:app --reload --port 8000
+```
 
-Access Swagger UI at:
+### 📄 Access Swagger UI
 
-http://127.0.0.1:8000/docs
-👥 Roles & Permissions
-Role	Endpoints Allowed
-Admin	/users/admin-only, /users/analytics, /users/dashboard, /records/*
-Analyst	/users/analytics, /users/dashboard, /records/* (read only)
-Viewer	/users/dashboard
-🧪 Example API Requests
-1. Register User
+[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
+---
+
+## 👥 Roles & Permissions
+
+| Role    | Allowed Endpoints                                                         |
+| ------- | ------------------------------------------------------------------------- |
+| Admin   | `/users/admin-only`, `/users/analytics`, `/users/dashboard`, `/records/*` |
+| Analyst | `/users/analytics`, `/users/dashboard`, `/records/*` *(read-only)*        |
+| Viewer  | `/users/dashboard`                                                        |
+
+---
+
+## 🧪 Example API Requests
+
+### 1. Register User
+
+```bash
 POST /auth/register
+```
 
+```json
 {
   "username": "admin",
   "password": "1234",
   "role": "admin"
 }
-2. Login
+```
 
+### 2. Login
+
+```bash
 POST /auth/login
+```
 
+```json
 {
   "username": "admin",
   "password": "1234"
 }
+```
 
-Response
+#### Response
 
+```json
 {
   "access_token": "<JWT_TOKEN>",
   "token_type": "bearer"
 }
-3. Create Record (Admin)
+```
 
+### 3. Create Record (Admin)
+
+```bash
 POST /records/
+```
 
+```json
 {
   "amount": 5000,
   "type": "income",
@@ -119,12 +161,17 @@ POST /records/
   "date": "2026-04-02",
   "notes": "April salary"
 }
-4. Get Records
+```
 
+### 4. Get Records
+
+```bash
 GET /records?type=income
+```
 
-Response
+#### Response
 
+```json
 [
   {
     "id": 1,
@@ -135,38 +182,71 @@ Response
     "notes": "April salary"
   }
 ]
-5. Dashboard Summary
+```
 
+### 5. Dashboard Summary
+
+```bash
 GET /records/summary
+```
 
-Response
+#### Response
 
+```json
 {
   "total_income": 5000,
   "total_expense": 0,
   "net_balance": 5000
 }
-🔒 Swagger Authorization
-Login → Get JWT token
-Click Authorize in Swagger UI
-Paste token as:
-Bearer <JWT_TOKEN>
+```
 
-✅ Key Highlights
-Clean project structure with modular routes
-Role-based authorization with decorators
-JWT authentication & password hashing
-SQLite database for lightweight setup
-FastAPI Swagger docs for easy testing
-Optional Improvements
-Pagination for records
-Search/filter by notes & categories
-Soft delete instead of permanent delete
-Unit tests / integration tests
-Docker setup for easy deployment
-📌 Notes
-Ensure .env or secret tokens are kept secure if deployed
-Use a .gitignore to avoid pushing finance.db or virtual environments
+---
+
+## 🔒 Swagger Authorization
+
+1. Login using `/auth/login` to get JWT token
+2. Click **Authorize** in Swagger UI
+3. Enter token in this format:
+
+```
+Bearer <JWT_TOKEN>
+```
+
+---
+
+## ✅ Key Highlights
+
+* Clean project structure with modular routes
+* Role-based authorization with decorators
+* JWT authentication & password hashing
+* SQLite database for lightweight setup
+* FastAPI Swagger docs for easy testing
+
+---
+
+## 🔧 Optional Improvements
+
+* Pagination for records
+* Search / filter by notes & categories
+* Soft delete instead of permanent delete
+* Unit tests / integration tests
+* Docker setup for easy deployment
+
+---
+
+## 📌 Notes
+
+* Ensure `.env` or secret tokens are kept secure if deployed
+* Use a `.gitignore` to avoid pushing `finance.db` or virtual environments
+
+
+
+
+
+
+
+    
+
 
 
 
